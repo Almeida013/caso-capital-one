@@ -1,0 +1,19 @@
+# 📄 .github/workflows/validate.yml
+
+name: Infra Validation
+
+# Quando a pipeline deve rodar? Sempre que fizer push em arquivos .tf
+on:
+  push:
+    paths:
+      - '**/*.tf'   # Monitora qualquer mudança em arquivos Terraform
+
+jobs:
+  security_scan:
+    name: Rodar tfsec para validar segurança
+    runs-on: ubuntu-latest  # Usa uma máquina Linux fornecida pelo GitHub
+
+    steps:
+      - name: Baixar seu código
+        uses: actions/checkout@v3
+        # Isso clona seu c
