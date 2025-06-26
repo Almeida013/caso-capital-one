@@ -1,5 +1,5 @@
 # Define qual provedor vamos usar (AWS) e a região
-# As chaves são fictícias só pra simular. NÃO USAR EM PRODUÇÃO.
+# as chaves são fictícias só pra simular. NÃO USAR EM PRODUÇÃO.
 provider "aws" {
   region     = "us-east-1"         # Região padrão, você pode mudar depois
   access_key = "FAKE"              # Chave falsa, só pra rodar localmente
