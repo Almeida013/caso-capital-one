@@ -1,19 +1,24 @@
-# 📄 .github/workflows/validate.yml
-
 name: Infra Validation
 
-# Quando a pipeline deve rodar? Sempre que fizer push em arquivos .tf
 on:
   push:
     paths:
-      - '**/*.tf'   # Monitora qualquer mudança em arquivos Terraform
+      - '**/*.tf'
 
 jobs:
   security_scan:
-    name: Rodar tfsec para validar segurança
-    runs-on: ubuntu-latest  # Usa uma máquina Linux fornecida pelo GitHub
+    name: Rodar tfsec e checkov
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar seu código
+      - name: Checkout do código
         uses: actions/checkout@v3
-        # Isso clona seu c
+
+      - name: Rodar tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+
+      - name: Instalar checkov
+        run: pip install checkov
+
+      - name: Rodar checkov
+        run: checkov -d . --quiet --soft-fail false
