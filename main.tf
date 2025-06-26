@@ -10,5 +10,14 @@ provider "aws" {
 # ACL 'public-read' deixa TODO MUNDO na internet acessar. Isso é perigoso!
 resource "aws_s3_bucket" "inseguro" {
   bucket = "infrasafe-validator-teste"  # Nome único do bucket
-  acl    = "public-read"                # AQUI TÁ O ERRO que o tfsec vai pegar
+  acl    = "private"                # AQUI TÁ O ERRO que o tfsec vai pegar
+}
+
+resource "aws_s3_bucket_public_access_block" "bloqueio_publico" {
+  bucket = aws_s3_bucket.inseguro.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
