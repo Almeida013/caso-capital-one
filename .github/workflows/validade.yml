@@ -1,4 +1,4 @@
-name: Infra Validation
+name: 🔐 SafeShip - Infra Validator
 
 on:
   push:
@@ -21,4 +21,8 @@ jobs:
         run: pip install checkov
 
       - name: Rodar checkov
-        run: checkov -d . --quiet --soft-fail false
+        run: |
+          echo "🚨 Rodando Checkov..."
+          checkov -d . --quiet --soft-fail false
+
+
