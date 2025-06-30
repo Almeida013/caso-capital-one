@@ -80,8 +80,10 @@ Como pensar como DevSecOps desde o primeiro .tf
 Que segurança deve ser pensada no commit, não no incidente
 
 ## 🙋‍♂️ Sobre mim
-Sou Kaike, apaixonado por cloud, DevSecOps e soluções com propósito.
-Esse projeto faz parte da minha transição de carreira, e tem como objetivo aprender fazendo.
 
-📫 Me chama no LinkedIn pra conversar sobre segurança em cloud, carreira tech ou projetos com propósito.
+Sou o Kaike Almeida, em transição de carreira pro mundo Cloud e DevSecOps.
+Esse projeto é parte do meu aprendizado prático: em vez de só estudar teoria, eu simulo falhas reais que já causaram grandes vazamentos — como o da Capital One — e aplico na prática ferramentas que poderiam ter evitado tudo.
+A ideia é aprender com casos reais, criar um portfólio sólido e compartilhar soluções simples que fazem diferença na segurança.
+Mais projetos virão.
+
 
