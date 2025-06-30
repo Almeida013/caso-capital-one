@@ -1,79 +1,87 @@
-Em 2019, um dos maiores bancos digitais dos EUA, a Capital One, sofreu um vazamento massivo de dados por causa de uma falha básica: um bucket S3 mal configurado e uma porta aberta na nuvem.
-Essa brecha custou centenas de milhões de dólares em prejuízo, multas e reputação.
+<h1 align="center">🛡️ InfraSafe Validator</h1>
+<h3 align="center">O projeto que teria evitado o vazamento da Capital One</h3>
 
-A pergunta que fica é:
-como ninguém viu isso antes de ir pro ar?
+<p align="center">
+  <strong>IaC + CI/CD + Segurança contínua</strong><br/>
+  Um case real de falha transformado em aprendizado prático de DevSecOps.
+</p>
 
-Foi aí que surgiu a ideia de criar o InfraSafe Validator — um projeto de simulação + automação que mostra na prática como detectar esse tipo de falha antes que vire notícia.
+---
 
-🎯 Objetivo
-Esse projeto simula um cenário real de erro de infraestrutura insegura em cloud e, em cima disso, constrói um pipeline DevSecOps que:
+## 🚨 O caso real: Capital One
 
-Detecta falhas automaticamente no momento do push
+Em 2019, a Capital One — um dos maiores bancos dos EUA — sofreu um dos maiores vazamentos de dados da década.  
+Mais de **100 milhões de dados** foram expostos por causa de:
 
-Bloqueia deploys inseguros
+- Um **bucket S3** mal configurado (acesso público indevido)
+- Uma **porta SSH** aberta pra qualquer IP (0.0.0.0/0)
+- Falta de políticas de **validação contínua de segurança**
 
-Ensina a mentalidade de segurança desde o código
+Ou seja: a infraestrutura estava moderna, mas **não validada**. E isso custou caro.
 
-Mostra como aplicar ferramentas reais como tfsec, checkov e validação com Python
+---
 
-⚙️ O que esse projeto cobre
-Um main.tf com um bucket S3 configurado como público (public-read)
+## 💡 O que este projeto faz?
 
-Um security_group.tf com a porta SSH (22) aberta pro mundo (0.0.0.0/0)
+Este repositório simula exatamente esse tipo de cenário inseguro, **mas com um diferencial**:
 
-Um CI/CD no GitHub Actions que roda:
+> ⚙️ Um pipeline automatizado que detecta e bloqueia essas falhas **antes mesmo do deploy** acontecer.
 
-✅ tfsec
+### Tecnologias usadas:
 
-✅ checkov
+- 🧱 **Terraform** – IaC (Infrastructure as Code)
+- 🤖 **GitHub Actions** – CI/CD automatizado
+- 🔎 **tfsec** – scanner de segurança focado em Terraform
+- 🔐 **Checkov** – ferramenta de compliance e validação de políticas
 
-Um script em Python (scanner_infra.py) que escaneia localmente seus .tf e acusa padrões perigosos
+---
 
-🧪 Como testar
-Clone o repositório:
+## 📁 Estrutura do projeto
 
-bash
-Copiar
-Editar
-git clone https://github.com/seuusuario/infrasafe-validator.git
-cd infrasafe-validator
-Rode o scanner Python local:
 
-bash
-Copiar
-Editar
-python scanner_infra.py
-Faça um push pro GitHub
-→ Vá na aba Actions
-→ Você verá a pipeline falhar com mensagens como:
+📦 caso-capital-one
 
-pgsql
-Copiar
-Editar
-❌ aws_s3_bucket.inseguro: Bucket ACL should not allow public access
-❌ security_group.inseguro: ingress rule allows unrestricted SSH access
-🧠 Por que isso importa?
-Segurança em nuvem não é só firewall e antivírus.
-Ela começa no código da infra.
-Todo commit pode ser um risco se não for verificado com cuidado.
+├── main.tf                 # Bucket S3 com ACL insegura
 
-Esse projeto mostra como construir um escudo automatizado que age assim que alguém faz um push.
-É um DevSecOps raiz: simples, eficaz e direto ao ponto.
+├── security_group.tf       # Porta 22 aberta pra todo mundo
 
-🔍 Tecnologias usadas
-🛠️ Terraform (IaC)
+├── .github/
 
-🚨 tfsec (auditoria de segurança no código)
+│   └── workflows/
 
-🛡️ Checkov (validação de políticas e boas práticas)
+│       └── validate.yml    # CI com tfsec + checkov
 
-🧪 Python (scanner customizado)
+├── teste.py                # Script auxiliar
 
-⚙️ GitHub Actions (pipeline CI/CD)
 
-🤖 E se fosse produção?
-Se esse código fosse aplicado numa conta real da AWS, o bucket estaria acessível pra qualquer um com um navegador.
-A porta SSH estaria aberta pra ataques automatizados.
-O risco seria real.
-Mas com o InfraSafe Validator, isso nem chegaria a ser aplicado.
+---
+
+## ✅ O que é validado automaticamente?
+
+| Validação                              | Status      |
+|----------------------------------------|-------------|
+| Bucket S3 com `public-read`            | 🚫 Bloqueia |
+| Falta de criptografia no bucket        | 🚫 Bloqueia |
+| Porta 22 aberta (`0.0.0.0/0`)          | 🚫 Bloqueia |
+| Falta de bloqueio de acesso público    | 🚫 Bloqueia |
+| Sem versionamento ou logging           | 🚫 Bloqueia |
+| Falta de descrição nas regras de SG    | 🚫 Bloqueia |
+
+
+## 📚 O que aprendi com esse projeto?
+O quão perigosas são permissões mal configuradas
+
+Como CI/CD pode funcionar como escudo preventivo
+
+Como ferramentas como tfsec e checkov são poderosas na prática
+
+Como pensar como DevSecOps desde o primeiro .tf
+
+Que segurança deve ser pensada no commit, não no incidente
+
+## 🙋‍♂️ Sobre mim
+Sou Kaike, apaixonado por cloud, DevSecOps e soluções com propósito.
+Esse projeto faz parte da minha transição de carreira, e tem como objetivo aprender fazendo.
+
+📫 Me chama no LinkedIn pra conversar sobre segurança em cloud, carreira tech ou projetos com propósito.
+
